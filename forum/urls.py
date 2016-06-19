@@ -22,6 +22,6 @@ import views
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^static/(?P<path>.*)$', django.contrib.staticfiles.views.serve),
+    # url(r'^static/(?P<path>.*)$', django.contrib.staticfiles.views.serve),
     url(r'^$', views.index),
 ]

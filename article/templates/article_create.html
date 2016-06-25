@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="col-xs-12 col-md-12">
+  <ol class="breadcrumb">
+    <li><a href="/">首页</a></li>
+    <li><a href="/article/list/{{ b.id }}">{{ b.name }}</a></li>
+    <li class="active">发表文章</li>
+  </ol>
+  <form class="form-horizontal" method="POST" action="">
+    <div class="form-group">
+      <label for="inputTitle" class="col-sm-2 col-md-1 control-label">标题</label>
+      <div class="col-sm-10 col-md-10">
+        <input type="text" class="form-control" id="inputTitle" placeholder="标题" name="title" required  />
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="inputContent" class="col-sm-2 col-md-1 control-label">内容</label>
+      <div class="col-sm-10 col-md-10">
+        <textarea name="content" id="contentInput" class="form-control"></textarea>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="col-sm-offset-1 col-sm-10">
+        <button type="submit" class="btn btn-primary">发表</button>
+      </div>
+    </div>
+  </form>
+</div>
+{% endblock %}

@@ -20,8 +20,9 @@ def article_create(request, block_id):
     else:
         form = ArticleForm(request.POST)
         if form.is_valid():
-            article = Article(block=block, title=form.cleaned_data["title"],
-                    content=form.cleaned_data["content"], status=0)
+            article = form.save(commit=False)
+            article.block = block
+            article.status = 0
             article.save()
             return redirect("/article/list/%s" % block_id)
         else:

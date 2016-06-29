@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 
 from block.models import Block
 from .models import Article
+from .forms import ArticleForm
 
 
 def article_list(request, block_id):
@@ -17,16 +18,11 @@ def article_create(request, block_id):
     if request.method == "GET":
         return render(request, "article_create.html", {"b": block})
     else:
-        title = request.POST["title"].strip()
-        content = request.POST["content"].strip()
-        if title == "" or content == "":
-            return render(request, "article_create.html",
-                    {"b": block, "error": "标题和内容都不能为空.",
-                     "title": title, "content": content})
-        if len(title) > 100 or len(content) > 10000:
-            return render(request, "article_create.html",
-                    {"b": block, "error": "标题或内容太长了.",
-                        "title": title, "content": content})
-        article = Article(block=block, title=title, content=content, status=0)
-        article.save()
-        return redirect("/article/list/%s" % block_id)
+        form = ArticleForm(request.POST)
+        if form.is_valid():
+            article = Article(block=block, title=form.cleaned_data["title"],
+                    content=form.cleaned_data["content"], status=0)
+            article.save()
+            return redirect("/article/list/%s" % block_id)
+        else:
+            return render(request, "article_create.html", {"b": block, "form": form})

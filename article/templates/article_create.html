@@ -6,22 +6,26 @@
     <li><a href="/article/list/{{ b.id }}">{{ b.name }}</a></li>
     <li class="active">发表文章</li>
   </ol>
-  {% if error %}
-  <div class="alert alert-danger">{{ error }}</div>
-  {% endif %}
+  {% for field in form %}
+    {% if field.errors %}
+      {% for error in field.errors %}
+        <div class="alert alert-danger">{{ field.label }}: {{ error }}</div>
+      {% endfor %}
+    {% endif %}
+  {% endfor %}
   <form class="form-horizontal" method="POST" action="">{% csrf_token %}
     <div class="form-group">
       <label for="inputTitle" class="col-sm-2 col-md-1 control-label">标题</label>
       <div class="col-sm-10 col-md-10">
         <input type="text" class="form-control" id="inputTitle" 
-          placeholder="标题" name="title" value="{{ title }}" />
+          placeholder="标题" name="title" value="{{ form.title.value }}" />
       </div>
     </div>
     <div class="form-group">
       <label for="inputContent" class="col-sm-2 col-md-1 control-label">内容</label>
       <div class="col-sm-10 col-md-10">
         <textarea name="content" id="contentInput" class="form-control">
-          {{ content }}
+          {{ form.content.value }}
         </textarea>
       </div>
     </div>

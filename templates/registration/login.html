@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="col-md-12">
+      {% if form.non_field_errors %}
+        {% for error in form.non_field_errors %}
+        <div class="alert alert-danger">{{ error }}</div>
+        {% endfor %}
+      {% endif %}
+      {% if form.username.errors %}
+        {% for error in form.username.errors %}
+        <div class="alert alert-danger">用户名：{{ error }}</div>
+        {% endfor %}
+      {% endif %}
+      {% if form.password.errors %}
+        {% for error in form.password.errors %}
+        <div class="alert alert-danger">密码：{{ error }}</div>
+        {% endfor %}
+      {% endif %}
+    </div>
+    <div class="col-md-3">
+     &nbsp;
+    </div>
+    <div class="col-md-6">
+      <div class="panel panel-info">
+        <div class="panel-heading">
+          <b>登陆</b>
+        </div>
+        <div class="panel-body">
+          <form method="post" action="{% url 'login' %}">
+          {% csrf_token %}
+          
+          <div class="input-group">
+              <span class="input-group-addon">用户名</span>
+              <input id="id_username" maxlength="254" name="username" type="text" class="form-control" />
+          </div>
+          <br />
+          <div class="input-group">
+              <span class="input-group-addon">密码&nbsp;&nbsp;&nbsp;&nbsp;</span>
+              <input id="id_password" name="password" type="password" class="form-control" />
+          </div>
+          <br />
+          <input type="submit" class="btn btn-primary" value="登陆" />
+          <input type="hidden" name="next" value="{{ next }}" />
+          </form>
+        </div>
+        <div class="panel-footer">
+          <a href="/register">还没有账户?去注册...</a>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <!--
+          <a href="{% url 'password_reset' %}">忘记密码？</a>
+          -->
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+     &nbsp;
+    </div>
+{% endblock %}

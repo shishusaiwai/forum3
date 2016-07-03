@@ -49,6 +49,7 @@ class ArticleCreateView(View):
         form = ArticleForm(request.POST)
         if form.is_valid():
             article = form.save(commit=False)
+            article.owner = request.user
             article.block = self.block
             article.status = 0
             article.save()

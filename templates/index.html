@@ -17,7 +17,7 @@
   <div class="well">
     {% if user.is_authenticated %}  
       <p>{{ user.username }}. 欢迎来到论坛.</p>
-      <a href="/accounts/logout">登出</a>
+      <a href="/accounts/logout">登出</a>&nbsp;<a href="/accounts/password_change/">修改密码</a>
     {% else %}               
       <p>匿名用户. 请<a href="/accounts/login">登录</a>.</p>
     {% endif %}

@@ -9,13 +9,76 @@
   <table class="table table-bordered">
   	<tr>
   		<td style="width: 200px;">
-        作者: No Name
+        作者: {{ article.owner.username }}
       </td>
   		<td>
         <h2>{{ article.title }}</h2>
         {{ article.content }}
       </td>
   	</tr>
+    {% for comment in comments %}
+  	<tr>
+  		<td style="width: 200px;">
+        作者: {{ comment.owner.username }}
+      </td>
+  		<td>
+        {{ comment.content }}
+      </td>
+  	</tr>
+    {% endfor %}
   </table>
+  {% include "component/paginator.html" %}
+  <table class="table mainTable">
+    <tr>
+      <td class="author">
+        <br />
+        <center>作者：{{ user.username }}<center>
+      </td>
+      <td class="content">
+        <textarea class="form-control" id="commentContent" rows="3"></textarea>
+        <br />
+        <button class="btn btn-primary" id="commentBtn">发表评论</button>
+        <br />
+        <br />
+      </td>
+    </tr>
+  </table>
+  <style type="text/css">
+  .mainTable td.author {
+    width: 10%;
+  }
+  .mainTable td.content {
+    width: 87%;
+  }
+  blockquote {
+    font-size: 13px;
+  }
+  img {
+      max-width: 200px;
+      max-height: 200px;
+  }
+  </style>
 </div>
+<script type="text/javascript" src="/static/js/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="/static/js/jquery.csrf.js"></script>
+<script type="text/javascript">
+$(document).ready(function () {
+  var article_id = {{ article.id }};
+  var page_cnt = {{ pagination_data.page_cnt }};
+
+  $("#commentBtn").click(function () {
+    var comment = $("#commentContent").val();
+    var param = {"article_id": article_id, "content": comment};
+    $.post("/comment/create/", param, function (data) {
+      var ret = JSON.parse(data);
+      if (ret["status"] == "ok") {
+          $("#commentContent").val("");
+          window.location.href = "/article/detail/{{ article.id }}?page_no=" + (page_cnt + 1);
+      } else {
+          alert(ret["msg"]);
+      }
+    });
+  })
+});
+</script>
 {% endblock %}

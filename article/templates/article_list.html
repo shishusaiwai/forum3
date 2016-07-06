@@ -28,38 +28,6 @@
       {% endfor %}
     </tbody>
   </table>
-  <nav>
-    <ul class="pagination">
-      {% if has_previous %}
-      <li>
-      <a href="?page_no=1" aria-label="Previous">
-          <span aria-hidden="true">首页</span>
-        </a>
-      </li>
-      <li>
-        <a href="?page_no={{ previous_link }}" aria-label="Previous">
-          <span aria-hidden="true">&laquo;</span>
-        </a>
-      </li>
-      {% endif %}
-      {% for no in page_links  %}  
-        <li{% if current_no == no %} class="active"{% endif %}>
-          <a href="?page_no={{ no }}">{{ no }}</a>
-        </li>
-      {% endfor %}
-      {% if has_next %}
-      <li>
-        <a href="?page_no={{ next_link }}" aria-label="Next">
-          <span aria-hidden="true">&raquo;</span>
-        </a>
-      </li>
-      <li>
-        <a href="?page_no={{ page_cnt }}" aria-label="Next">
-          <span aria-hidden="true">尾页</span>
-        </a>
-      </li>
-      {% endif %}
-    </ul>
-  </nav>
+  {% include "component/paginator.html" %}
 </div>
 {% endblock %}

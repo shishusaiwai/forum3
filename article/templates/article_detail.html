@@ -22,7 +22,7 @@
         作者: {{ comment.owner.username }}
       </td>
   		<td>
-        {{ comment.content }}
+        {{ comment.content|linebreaksbr }}
       </td>
   	</tr>
     {% endfor %}

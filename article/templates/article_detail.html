@@ -22,13 +22,22 @@
         作者: {{ comment.owner.username }}
       </td>
   		<td>
+        <a href="#replyRegion" data-id="{{ comment.id }}" 
+          class="replyBtn btn btn-primary pull-right">回复</a>
+        {% if comment.to_comment %}
+            <blockquote>
+              <b>{{ comment.to_comment.owner.username }}:</b>
+              <br />
+              {{ comment.to_comment.content|linebreaksbr }}
+            </blockquote>
+        {% endif %}
         {{ comment.content|linebreaksbr }}
       </td>
   	</tr>
     {% endfor %}
   </table>
   {% include "component/paginator.html" %}
-  <table class="table mainTable">
+  <table id="replyRegion" class="table mainTable">
     <tr>
       <td class="author">
         <br />
@@ -65,10 +74,17 @@
 $(document).ready(function () {
   var article_id = {{ article.id }};
   var page_cnt = {{ pagination_data.page_cnt }};
+  var to_comment_id = 0;
+
+  $(".replyBtn").click(function (e) {
+    to_comment_id = parseInt($(e.target).attr("data-id"));
+    $("#commentContent").focus();
+    return false;
+  });
 
   $("#commentBtn").click(function () {
     var comment = $("#commentContent").val();
-    var param = {"article_id": article_id, "content": comment};
+    var param = {"article_id": article_id, "content": comment, "to_comment_id": to_comment_id};
     $.post("/comment/create/", param, function (data) {
       var ret = JSON.parse(data);
       if (ret["status"] == "ok") {

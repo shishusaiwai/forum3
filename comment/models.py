@@ -23,6 +23,8 @@ class Comment(models.Model):
     article = models.ForeignKey(Article, verbose_name="所属文章")
     content = models.CharField(u"内容", max_length=10000, blank=True)
     status = models.IntegerField(u"状态", choices=((0, u"普通"), (-1, u"删除")), default=0)
+    to_comment = models.ForeignKey("self", null=True,
+            blank=True, verbose_name="被回复评论")
 
     create_timestamp = models.DateTimeField(auto_now_add=True)
     last_update_timestamp = models.DateTimeField(auto_now=True)

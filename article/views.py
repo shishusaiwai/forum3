@@ -53,8 +53,7 @@ class ArticleDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         page_no = int(self.request.GET.get("page_no", "1"))
-        all_comments = Comment.objects.filter(article=context["article"],
-                                              status=0)
+        all_comments = Comment.normal_objects.filter(article=context["article"])
         comments, pagination_data = paginate_queryset(all_comments,
                 page_no, cnt_per_page=3)
         context['comments'] = comments

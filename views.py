@@ -8,11 +8,16 @@ from django.utils import timezone
 
 from usercenter.models import ActivateCode
 from block.models import Block
+from message.models import UserMessage
 
 
 def index(request):
     block_infos = Block.objects.filter(status=0).order_by("-id")
-    return render(request, "index.html", {"blocks": block_infos})
+    if request.user.is_authenticated():
+        msg_cnt = UserMessage.objects.filter(status=0, owner=request.user).count()
+    else:
+        msg_cnt = 0
+    return render(request, "index.html", {"blocks": block_infos, "msg_cnt": msg_cnt})
 
 
 def register(request):

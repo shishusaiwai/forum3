@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'article',
     'comment',
     'usercenter',
+    'message',
 ]
 
 MIDDLEWARE = [

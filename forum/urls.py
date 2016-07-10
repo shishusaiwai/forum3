@@ -30,3 +30,5 @@ urlpatterns = [
     url(r'^activate/(?P<code>\w+)$', activate),
     url(r'^$', views.index),
 ]
+
+# admin.site.disable_action('delete_selected')

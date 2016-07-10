@@ -10,7 +10,7 @@ class Article(models.Model):
     title = models.CharField("名称", max_length=100)
     content = models.CharField("描述", max_length=10000)
     status = models.IntegerField("状态",
-            choices=((0, "正常"), (-1, "删除")))
+            choices=((0, "正常"), (-1, "删除"), (10, "精华")))
 
     create_timestamp = models.DateTimeField("创建时间", auto_now_add=True)
     last_update_timestamp = models.DateTimeField("最后更新时间", auto_now=True)

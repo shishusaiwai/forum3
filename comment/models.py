@@ -21,8 +21,8 @@ class Comment(models.Model):
 
     owner = models.ForeignKey(User, verbose_name="作者")
     article = models.ForeignKey(Article, verbose_name="所属文章")
-    content = models.CharField(u"内容", max_length=10000, blank=True)
-    status = models.IntegerField(u"状态", choices=((0, u"普通"), (-1, u"删除")), default=0)
+    content = models.CharField("内容", max_length=10000, blank=True)
+    status = models.IntegerField("状态", choices=((0, "普通"), (-1, "删除")), default=0)
     to_comment = models.ForeignKey("self", null=True,
             blank=True, verbose_name="被回复评论")
 

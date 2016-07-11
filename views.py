@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 from django.shortcuts import render
 from django.utils import timezone
 
-from usercenter.models import ActivateCode
+from usercenter.models import ActivateCode, UserProfile
 from block.models import Block
 from message.models import UserMessage
 
@@ -38,6 +38,8 @@ def register(request):
         if not error:
             user = User.objects.create_user(username=username, email=email, password=password)
             user.save()
+            profile = UserProfile(user=user)
+            profile.save()
 
             new_code = str(uuid.uuid4()).replace("-", "")
             expire_time = timezone.now() + datetime.timedelta(days=2)

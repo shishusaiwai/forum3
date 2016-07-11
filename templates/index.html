@@ -17,7 +17,7 @@
   <div class="well">
     {% if user.is_authenticated %}  
       <p>
-        {{ user.username }}. 欢迎来到论坛.
+        {{ user.username }}({{ user.userprofile.get_sex_display }}). 欢迎来到论坛.
         {% if msg_cnt %}
         <a href="/message/list"><span class="badge">{{ msg_cnt }}</span></a>
         {% endif %}

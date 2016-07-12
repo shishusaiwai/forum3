@@ -17,6 +17,11 @@
   <div class="well">
     {% if user.is_authenticated %}  
       <p>
+        {% if user.userprofile.avatar %}
+          <img src="{{ user.userprofile.avatar }}" style="width: 100%; height: 150px;" alt="头像" />
+        {% else %}
+          <a href="/usercenter/uploadavatar/">您还没有头像，去上传</a>
+        {% endif %}
         {{ user.username }}({{ user.userprofile.get_sex_display }}). 欢迎来到论坛.
         {% if msg_cnt %}
         <a href="/message/list"><span class="badge">{{ msg_cnt }}</span></a>

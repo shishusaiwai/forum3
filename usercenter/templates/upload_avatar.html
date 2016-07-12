@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="col-md-12">
+  <ol class="breadcrumb">
+    <li><a href="/">首页</a></li>
+    <li class="active">上传头像</li>
+  </ol>
+</div>
+<div class="col-md-3">
+ &nbsp;
+</div>
+<div class="col-md-6">
+  <form method="post" action="" enctype="multipart/form-data">
+    {% csrf_token %}
+      <label>上传头像</label>
+      <input name="avatar" type="file"  />
+    <br />
+    <input type="submit" class="btn btn-primary" value="提交" />
+  </form>
+</div>
+<div class="col-md-3">
+ &nbsp;
+</div>
+{% endblock %}
